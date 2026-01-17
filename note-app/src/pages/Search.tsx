@@ -17,9 +17,9 @@ const Search = () => {
 
   const notesToRender = searchId
     ? notes.filter(note =>
-      note.title.toLowerCase().includes(searchId) ||
+      note.title.toLowerCase().includes(searchId.toLowerCase()) ||
       note.tags.some(tag =>
-        tag.name.toLowerCase().includes(searchId)
+        tag.name.toLowerCase().includes(searchId.toLowerCase())
       )
     )
     : notes;
