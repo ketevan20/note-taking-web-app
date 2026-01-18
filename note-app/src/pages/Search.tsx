@@ -22,7 +22,7 @@ const Search = () => {
         tag.name.toLowerCase().includes(searchId.toLowerCase())
       )
     )
-    : notes;
+    : null;
 
   return (
     <div className="w-full flex">
@@ -31,9 +31,9 @@ const Search = () => {
           {!isMobile && <NewNoteButton />}
           {isMobile && <MobileNewNoteButton />}
 
-          <p className="md:hidden">Search</p>
+          <p className="md:hidden text-[24px] font-bold leading-[120%] tracking-[-0.5px] dark:text-[rgba(255,255,255,1)]">Search</p>
           {isMobile && <SearchBar />}
-          {searchId && <p className="md:hidden">All notes matching "{searchId}" are displayed below.</p>}
+          {searchId && <p className="md:hidden dark:text-[rgba(202,207,216,1)]">All notes matching "{searchId}" are displayed below.</p>}
 
 
           <NoteList notes={notesToRender} />

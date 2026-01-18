@@ -18,16 +18,14 @@ const Tags = () => {
   return (
     <div className="w-full flex">
       {(!isMobile || !isTagOpen) && (
-        <div className="w-full xl:w-72.5 md:w-52 md:pr-5 md:py-4 md:border-r border-[rgba(224,228,234,1)] flex flex-col gap-4">
+        <div className="w-full xl:w-72.5 md:w-52 md:pr-5 md:py-4 md:border-r border-[rgba(224,228,234,1)] flex flex-col gap-4 dark:border-[rgba(35,37,48,1)]">
           {!isMobile && <NewNoteButton />}
           {isMobile && <MobileNewNoteButton />}
 
           {isMobile && <GoBack />}
 
-          {isMobile && <p>Notes Tagged: {tagsId}</p>}
-
-          <p>All notes with the ”{tagsId}” tag are shown here.</p>
-
+          <p className="md:hidden text-[24px] font-bold leading-[120%] tracking-[-0.5px] dark:text-[rgba(255,255,255,1)]"><span className="text-[rgba(82,88,102,1)] dark:text-[rgba(153,160,174,1)]">Notes Tagged:</span> {tagsId}</p>
+          <p className="text-[rgba(43,48,59,1)] font-normal text-[14px] leading-[130%] tracking-[-0.2px] dark:text-[rgba(202,207,216,1)]">All notes with the ”{tagsId}” tag are shown here.</p>
           <NoteList notes={notes.filter(note => tagsId && note.tags.some(tag => tag.name === tagsId))} />
         </div>
       )}
