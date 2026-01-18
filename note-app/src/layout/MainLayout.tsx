@@ -9,7 +9,7 @@ const MainLayout = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
   return (
-    <div className="min-h-screen w-full flex max-md:flex-col relative overflow-auto font-[Inter] dark:bg-[rgba(14,18,27,1)]">
+    <div className="md:min-h-screen max-md:h-screen w-full flex max-md:flex-col relative overflow-auto font-[Inter] dark:bg-[rgba(14,18,27,1)]">
 
       {!isMobile && <SideBar />}
       {isMobile && <NavBar />}
