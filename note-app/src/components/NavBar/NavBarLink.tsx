@@ -9,7 +9,12 @@ type NavBarLinkType = {
 
 const NavBarLink = ({ to, icon, label }: NavBarLinkType) => {
     return (
-        <NavLink to={to} className='w-full max-w-20 py-1 rounded-lg flex flex-col items-center gap-1' style={({ isActive }) => ({ backgroundColor: isActive ? 'rgba(235, 241, 255, 1)' : 'transparent', color: isActive ? 'rgba(51, 92, 255, 1)' : ''})}>
+        <NavLink to={to} className={({ isActive }) =>
+            `w-full max-w-20 py-1 rounded-lg flex flex-col items-center gap-1
+    ${isActive
+                ? "bg-[rgba(235,241,255,1)] text-[rgba(51,92,255,1)] dark:bg-[rgba(43,48,59,1)]"
+                : "text-gray-700 hover:bg-gray-100"}`
+        }>
             {icon}
             <p className="hidden sm:block">{label}</p>
         </NavLink>

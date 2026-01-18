@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import MainLayout from "./layout/MainLayout"
 import AllNotes from "./pages/AllNotes"
 import ArchivedNotes from "./pages/ArchivedNotes"
@@ -9,6 +9,8 @@ import Tags from "./pages/Tags"
 import { NotesProvider } from "./context/NotesContext"
 import TagList from "./components/TagList/TagList"
 import { SearchProvider } from "./context/SearchContext"
+import EditThemeSettings from "./pages/EditThemeSettings"
+import EditFontSettings from "./pages/EditFontSettings"
 
 const App = () => {
   return (
@@ -17,7 +19,9 @@ const App = () => {
         <Routes>
           <Route path="/" element={<MainLayout />}>
 
-            <Route path="/" element={<AllNotes />}>
+            <Route index element={<Navigate to="notes" replace />} />
+
+            <Route path="notes" element={<AllNotes />}>
               <Route path=":noteId" element={<EditNote />} />
             </Route>
 
@@ -30,10 +34,10 @@ const App = () => {
               <Route path=":noteId" element={<EditNote />} />
             </Route>
 
-            <Route path="settings">
-              <Route index element={<Settings />} />
-              <Route path=":settingsId" element={<EditNote />} />
-            </Route>
+            <Route path="settings" element={<Settings />}>
+              <Route path="theme" element={<EditThemeSettings />} />
+              <Route path="font" element={<EditFontSettings />} />
+             </Route>
 
             <Route path="search" element={<Search />}>
               <Route path=":noteId" element={<EditNote />} />

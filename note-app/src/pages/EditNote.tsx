@@ -70,11 +70,11 @@ const EditNote = () => {
         enableReinitialize
       >
         {({ errors, touched }) => (
-          <Form className="h-full max-h-200 md:flex-2 flex flex-col gap-4 md:py-4 md:px-6">
+          <Form className="h-full max-h-200 md:flex-2 flex flex-col gap-4 md:py-4 md:px-6 text-[rgba(43,48,59,1)] dark:text-[rgba(202,207,216,1)] text-[14px] font-normal leading-[130%] tracking-[-0.2px]">
             {isMobile && <MobileHeaderControl isNew={noteId === 'Untitled Note'} noteId={note.id} isArchived={note.archived} />}
 
             <div className="flex flex-col">
-              <Field name='title' type='text' placeholder="Enter a title" />
+              <Field name='title' type='text' placeholder="Enter a title" className="text-[rgba(14,18,27,1)] dark:text-[rgba(255,255,255,1)] font-bold text-[24px] leading-[120%] tracking-[-0.5px]"/>
               {errors.title && touched.title && <ErrorMessage component='p' className="text-red-600" name="title" />}
             </div>
 
@@ -82,14 +82,14 @@ const EditNote = () => {
               <div>
                 <div className="flex gap-1">
                   <div className="w-28.75 flex items-center gap-1.5 py-1"><span className="w-4 h-4">{tagIcon}</span> Tags</div>
-                  <Field name='tags' type='text' placeholder="Add tags separated by commas (e.g. Work, Planning)" className="flex-1" />
+                  <Field name='tags' type='text' placeholder="Add tags separated by commas (e.g. Work, Planning)" className="flex-1 text-[rgba(14,18,27,1)] dark:text-[rgba(255,255,255,1)]" />
                 </div>
                 {errors.tags && touched.tags && <ErrorMessage component='p' className="text-red-600" name="tags" />}
               </div>
 
               {note.archived && <div className="flex gap-1">
                 <div className="w-28.75 flex items-center gap-1.5 py-1">{loadingIcon} Status</div>
-                <Field name='archived' type="text" value={'Archived'} className="flex-1" disabled={true} />
+                <Field name='archived' type="text" value={'Archived'} className="flex-1 text-[rgba(14,18,27,1)] dark:text-[rgba(255,255,255,1)]" disabled={true} />
               </div>}
 
               <div className="flex gap-1">
@@ -99,22 +99,22 @@ const EditNote = () => {
 
             </div>
 
-            <div className="w-full h-px bg-[rgba(224,228,234,1)]"></div>
+            <div className="w-full h-px bg-[rgba(224,228,234,1)] dark:bg-[rgba(35,37,48,1)]"></div>
 
             <Field as="textarea" name='content' className="w-full flex-1 resize-none" placeholder="Start writing your note here..."></Field>
             {errors.content && touched.content && <ErrorMessage component='p' className="text-red-600" name="content" />}
 
-            <div className="w-full h-px bg-[rgba(224,228,234,1)] max-md:hidden"></div>
+            <div className="w-full h-px bg-[rgba(224,228,234,1)] max-md:hidden dark:bg-[rgba(35,37,48,1)]"></div>
 
             {!isMobile && <div className="flex gap-4 max-lg:mb-2">
-              <button type="submit" className="bg-[rgba(51,92,255,1)] px-4 py-3 rounded-lg">Save Note</button>
-              <button onClick={() => navigate('..')} type="button" className="bg-[rgba(243,245,248,1)] px-4 py-3 rounded-lg">Cancel</button>
+              <button type="submit" className="bg-[rgba(51,92,255,1)] px-4 py-3 rounded-lg text-white">Save Note</button>
+              <button onClick={() => navigate('..')} type="button" className="bg-[rgba(243,245,248,1)] px-4 py-3 rounded-lg text-[rgba(82,88,102,1)] dark:bg-[rgba(35,37,48,1)] dark:text-[rgba(153,160,174,1)]">Cancel</button>
             </div>}
           </Form>
         )}
       </Formik>
 
-      {!isMobile && noteId !== 'Untitled Note' && <div className="flex-1 max-w-64.5 lg:border-l max-lg:border-t border-[rgba(224,228,234,1)] min-w-max max-lg:max-w-full">
+      {!isMobile && noteId !== 'Untitled Note' && <div className="flex-1 max-w-64.5 lg:border-l max-lg:border-t border-[rgba(224,228,234,1)] min-w-max max-lg:max-w-full dark:border-[rgba(35,37,48,1)]">
         <MenuBar noteId={note.id} archived={note.archived} />
       </div>}
 

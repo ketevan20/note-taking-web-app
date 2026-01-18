@@ -1,11 +1,15 @@
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { errowBackIcon } from "../../icons/Icons"
 
 const GoBack = () => {
-    const navigate = useNavigate();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   return (
-    <button onClick={() => navigate(-1)} className="flex gap-1 items-center">{errowBackIcon} Go Back</button>
+    <button onClick={() => {
+      if(location.pathname.startsWith('/tags')) navigate(-1);
+      else navigate('..');
+    }} className="flex gap-1 items-center text-[rgba(82,88,102,1)] dark:text-[rgba(202,207,216,1)]">{errowBackIcon} Go Back</button>
   )
 }
 

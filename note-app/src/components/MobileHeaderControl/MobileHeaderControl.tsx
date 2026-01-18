@@ -20,7 +20,7 @@ const MobileHeaderControl = ({ isNew, isArchived, noteId }: MobileHeaderControlP
             <div className="flex gap-4 items-center">
                 { !isNew && <button type="button" onClick={() => { deleteNote(noteId); navigate(-1) }} className="w-4.5 h-4.5">{deleteIcon}</button> }
                 { !isNew && <button type="button" onClick={() => { isArchived ? unarchiveNote(noteId) : archiveNote(noteId); navigate("..") }} className="w-4.5 h-4.5">{isArchived ? restoreIcon : archiveIcon}</button>}
-                <button onClick={() => navigate(-1)} type="button">Cancel</button>
+                <button type="button" onClick={() => navigate(-1)}>Cancel</button>
                 <button type="submit" className="text-[rgba(51,92,255,1)]">Save Note</button>
             </div>
         </div>
