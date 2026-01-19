@@ -17,7 +17,7 @@ const Tags = () => {
             <div className="flex flex-col gap-1">
                 {tags.map((tag, index) => (
                     <div key={tag.name}>
-                        <NavLink to={`/tags/${tag.name}`} className={({ isActive }) => `w-full px-3 py-2.5 flex items-center gap-2 rounded-lg text-[rgba(43,48,59,1)] dark:text-[rgba(224,228,234,1)] ${isActive ? "bg-[rgba(243,245,248,1)] text-[rgba(14,18,27,1)] dark:bg-[rgba(35,37,48,1)] dark:text-[rgba(255,255,255,1)]" : ""}` }>
+                        <NavLink to={`/tags/${tag.name}`} className={({ isActive }) => `w-full px-3 py-2.5 flex items-center gap-2 rounded-lg text-[rgba(43,48,59,1)] dark:text-[rgba(224,228,234,1)] ${isActive ? "bg-[rgba(243,245,248,1)] text-[rgba(14,18,27,1)] dark:bg-[rgba(35,37,48,1)] dark:text-[rgba(255,255,255,1)]" : "hover:bg-[#f3f5f8ad] dark:hover:bg-[#2325305d]"}` }>
                             {({ isActive }) => (
                                 <>
                                     <div className={`${isActive ? 'text-[rgba(51,92,255,1)]' : ''}`}>

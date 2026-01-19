@@ -1,6 +1,8 @@
 import SettingsOptions from "../components/SettingsOptions/SettingsOptions";
 import { monospaceIcon, sansSerifIcon, serifIcon } from "../icons/Icons";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import CustomToast from "../toasts/CustomToast";
 
 const EditFontSettings = () => {
     const fontOptions = [
@@ -22,6 +24,9 @@ const EditFontSettings = () => {
         document.documentElement.classList.remove(initialValue);
         document.documentElement.classList.add(font);
         setInitialValue(font);
+        toast(({ closeToast }) => (
+            <CustomToast message="Settings updated successfully!" closeToast={closeToast} />
+        ));
     }
 
     return (

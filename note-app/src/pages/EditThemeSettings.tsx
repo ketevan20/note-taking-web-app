@@ -1,6 +1,8 @@
+import { toast } from "react-toastify";
 import SettingsOptions from "../components/SettingsOptions/SettingsOptions";
 import { darkModeIcon, sunIcon, systemModeIcon } from "../icons/Icons";
 import { useState } from "react";
+import CustomToast from "../toasts/CustomToast";
 
 const EditThemeSettings = () => {
     const themeOptions = [
@@ -28,7 +30,9 @@ const EditThemeSettings = () => {
 
         document.documentElement.classList.toggle("dark", shouldBeDark);
         setInitialValue(theme);
-        console.log(initialValue);
+        toast(({ closeToast }) => (
+            <CustomToast message="Settings updated successfully!" closeToast={closeToast} />
+        ));
     }
 
     return (
