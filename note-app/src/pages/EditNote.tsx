@@ -28,7 +28,7 @@ const EditNote = () => {
     } else return <div>Note not found</div>;
   }
 
-  let newNote = note;
+  let newNote = { ...note };
 
   const formattedDate =
     note.createdAt
@@ -62,7 +62,11 @@ const EditNote = () => {
             newNote.id = crypto.randomUUID();
             addNote(newNote);
           } else {
-            updateNote(newNote);
+            const hasChanged =
+              note.title !== newNote.title ||
+              note.content !== newNote.content ||
+              JSON.stringify(note.tags) !== JSON.stringify(newNote.tags);
+            if (hasChanged) updateNote(newNote);
           }
           navigate('..')
         }}
@@ -74,7 +78,7 @@ const EditNote = () => {
             {isMobile && <MobileHeaderControl isNew={noteId === 'Untitled Note'} noteId={note.id} isArchived={note.archived} />}
 
             <div className="flex flex-col">
-              <Field name='title' type='text' placeholder="Enter a title" className="text-[rgba(14,18,27,1)] dark:text-[rgba(255,255,255,1)] font-bold text-[24px] leading-[120%] tracking-[-0.5px]"/>
+              <Field name='title' type='text' placeholder="Enter a title" className="text-[rgba(14,18,27,1)] dark:text-[rgba(255,255,255,1)] font-bold text-[24px] leading-[120%] tracking-[-0.5px]" />
               {errors.title && touched.title && <ErrorMessage component='p' className="text-red-600" name="title" />}
             </div>
 
@@ -107,8 +111,8 @@ const EditNote = () => {
             <div className="w-full h-px bg-[rgba(224,228,234,1)] max-md:hidden dark:bg-[rgba(35,37,48,1)]"></div>
 
             {!isMobile && <div className="flex gap-4 max-lg:mb-2">
-              <button type="submit" className="bg-[rgba(51,92,255,1)] px-4 py-3 rounded-lg text-white">Save Note</button>
-              <button onClick={() => navigate('..')} type="button" className="bg-[rgba(243,245,248,1)] px-4 py-3 rounded-lg text-[rgba(82,88,102,1)] dark:bg-[rgba(35,37,48,1)] dark:text-[rgba(153,160,174,1)]">Cancel</button>
+              <button type="submit" className="bg-[rgba(51,92,255,1)] px-4 py-3 rounded-lg text-white hover:bg-[rgba(37,71,208,1)]">Save Note</button>
+              <button onClick={() => navigate('..')} type="button" className="bg-[rgba(243,245,248,1)] px-4 py-3 rounded-lg text-[rgba(82,88,102,1)] dark:bg-[rgba(35,37,48,1)] dark:text-[rgba(153,160,174,1)] hover:bg-[#ebebeb]">Cancel</button>
             </div>}
           </Form>
         )}

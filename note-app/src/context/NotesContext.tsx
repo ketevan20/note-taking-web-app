@@ -1,5 +1,8 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import type { Note, NotesContextType, Tag } from "../types/Types";
+import { toast } from "react-toastify";
+import CustomToast from "../toasts/CustomToast";
+import { useNavigate } from "react-router-dom";
 
 const notesContext = createContext<NotesContextType | null>(null);
 
@@ -45,13 +48,13 @@ function reducer(state: State, action: Action): State {
             return { ...state, notes: state.notes.map(note => note.id === action.note.id ? action.note : note) };
 
         case "deleteNote":
-            return {...state, notes: state.notes.filter(note => note.id !== action.noteId) };
+            return { ...state, notes: state.notes.filter(note => note.id !== action.noteId) };
 
         case "archiveNote":
-            return { ...state, notes: state.notes.map(note => note.id === action.noteId ? { ...note, archived: true } : note ) };
+            return { ...state, notes: state.notes.map(note => note.id === action.noteId ? { ...note, archived: true } : note) };
 
         case "unarchiveNote":
-            return { ...state, notes: state.notes.map(note => note.id === action.noteId ? { ...note, archived: false } : note ) };
+            return { ...state, notes: state.notes.map(note => note.id === action.noteId ? { ...note, archived: false } : note) };
 
         case "replaceNotes":
             return { ...state, notes: action.notes };
@@ -68,25 +71,46 @@ export const NotesProvider = ({
     children: React.ReactNode;
 }) => {
     const [state, dispatch] = useReducer(reducer, undefined, initialValues);
+    const navigate = useNavigate();
 
     useEffect(() => {
         localStorage.setItem("notes", JSON.stringify(state.notes));
     }, [state.notes]);
 
-    const addNote = (note: Note) =>
-        dispatch({ type: "addNote", note });
+    const addNote = (note: Note) => {
+        toast(({ closeToast }) => (
+            <CustomToast message="Note saved successfully!" closeToast={closeToast} />
+        ));
+        dispatch({ type: "addNote", note })
+    }
 
-    const updateNote = (note: Note) =>
+    const updateNote = (note: Note) => {
+        toast(({ closeToast }) => (
+            <CustomToast message="Note updated successfully!" closeToast={closeToast} />
+        ));
         dispatch({ type: "updateNote", note });
+    }
 
-    const deleteNote = (noteId: string) =>
+    const deleteNote = (noteId: string) => {
+        toast(({ closeToast }) => (
+            <CustomToast message="Note permanently deleted." closeToast={closeToast} />
+        ));
         dispatch({ type: "deleteNote", noteId });
+    }
 
-    const archiveNote = (noteId: string) =>
+    const archiveNote = (noteId: string) => {
+        toast(({ closeToast }) => (
+            <CustomToast message="Note archived!" closeToast={closeToast} link="Archived Notes" onClick={() => navigate('/archived-notes')} />
+        ));
         dispatch({ type: "archiveNote", noteId });
+    }
 
-    const unarchiveNote = (noteId: string) =>
+    const unarchiveNote = (noteId: string) => {
+        toast(({ closeToast }) => (
+            <CustomToast message="Note restored to active notes." closeToast={closeToast} link="All Notes" onClick={() => navigate('/notes')} />
+        )); 
         dispatch({ type: "unarchiveNote", noteId });
+    }
 
     const tags: Tag[] = Array.from(
         new Set(

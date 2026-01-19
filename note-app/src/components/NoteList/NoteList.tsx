@@ -11,9 +11,7 @@ const NoteList = ({ notes }: NoteListProps) => {
     const location = useLocation();
     const navigate = useNavigate();
     const isMobile = useMediaQuery({ maxWidth: 768 });
-
-    console.log(location.pathname === 'Untitled Note');
-
+    
     return (
         <div className="flex flex-col gap-1">
             {!isMobile && location.pathname === '/notes/Untitled%20Note' && <div className="w-full bg-[rgba(243,245,248,1)] p-2 rounded-md text-[rgba(14,18,27,1)] dark:bg-[rgba(35,37,48,1)] dark:text-[rgba(255,255,255,1)]">Untitled Note</div>}

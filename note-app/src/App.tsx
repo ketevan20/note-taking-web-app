@@ -37,7 +37,7 @@ const App = () => {
             <Route path="settings" element={<Settings />}>
               <Route path="theme" element={<EditThemeSettings />} />
               <Route path="font" element={<EditFontSettings />} />
-             </Route>
+            </Route>
 
             <Route path="search" element={<Search />}>
               <Route path=":noteId" element={<EditNote />} />
