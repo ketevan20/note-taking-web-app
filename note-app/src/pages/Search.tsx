@@ -27,7 +27,7 @@ const Search = () => {
   return (
     <div className="w-full flex">
       {(!isMobile || !isNoteOpen) && (
-        <div className="w-full xl:w-72.5 md:w-52 md:pr-5 md:py-4 md:border-r border-[rgba(224,228,234,1)] flex flex-col gap-4">
+        <div className="w-full xl:w-72.5 md:w-52 md:pr-5 md:py-4 md:border-r border-[rgba(224,228,234,1)] flex flex-col gap-4 dark:border-[rgba(35,37,48,1)]">
           {!isMobile && <NewNoteButton />}
           {isMobile && <MobileNewNoteButton />}
 

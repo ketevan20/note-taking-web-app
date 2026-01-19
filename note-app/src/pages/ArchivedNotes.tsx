@@ -22,7 +22,7 @@ const ArchivedNotes = () => {
 
           <p className="md:hidden font-bold text-[24px] leading-[120%] dark:text-[rgba(255,255,255,1)]">Archived Notes</p>
           <p className="text-[rgba(43,48,59,1)] font-normal text-[14px] leading-[130%] tracking-[-0.2px] dark:text-[rgba(224,228,234,1)]">All your archived notes are stored here. You can restore or delete them anytime.</p>
-          { !notes.filter(note => note.archived).length ? <div className="p-2 bg-[rgba(243,245,248,1)] border border-[rgba(224,228,234,1)] rounded-lg dark:bg-[rgba(35,37,48,1)] dark:border-[rgba(43,48,59,1)] dark:text-[rgba(255,255,255,1)]">No notes have been archived yet. Move notes here for safekeeping, or <button onClick={() => navigate(`/notes/${encodeURIComponent('Untitled Note')}`, { replace: true })} className="underline">create a new note.</button></div> : ''}
+          { !notes.filter(note => note.archived).length ? <div className="p-2 bg-[rgba(243,245,248,1)] border border-[rgba(224,228,234,1)] rounded-lg dark:bg-[rgba(35,37,48,1)] dark:border-[rgba(43,48,59,1)] dark:text-[rgba(255,255,255,1)]">No notes have been archived yet. Move notes here for safekeeping, or <button onClick={() => navigate(`/notes/${encodeURIComponent('Untitled Note')}`, { replace: true })} className="inline underline text-left">create a new note.</button></div> : ''}
 
           <NoteList notes={notes.filter(note => note.archived)} />
         </div>

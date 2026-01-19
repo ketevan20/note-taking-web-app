@@ -1,6 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import { useNotes } from "../../context/NotesContext";
 import { archiveIcon, deleteIcon } from "../../icons/Icons"
+import Modal from "../../modal/Modal";
+import { useState } from "react";
+import type { ModalType } from "../../types/Types";
+import { useNavigate } from "react-router-dom";
 
 type MenuBarProps = {
     noteId: string;
@@ -8,13 +11,24 @@ type MenuBarProps = {
 }
 
 const MenuBar = ({ noteId, archived }: MenuBarProps) => {
+    const { unarchiveNote } = useNotes();
     const navigate = useNavigate();
-    const { deleteNote, archiveNote, unarchiveNote } = useNotes();
+    const [isOpen, setIsOpen] = useState(false);
+    const [modalType, setModalType] = useState<ModalType | null>(null);
+
 
     return (
         <div className="w-full pl-4 py-4 flex flex-col gap-3 max-lg:pr-4 text-[rgba(14,18,27,1)] dark:text-[rgba(255,255,255,1)]">
-            <button onClick={() => {archived ? unarchiveNote(noteId) : archiveNote(noteId); navigate("..")}} className="w-full flex gap-2 items-center px-4 py-3 border border-[rgba(202,207,216,1)] rounded-lg cursor-pointer dark:border-[rgba(82,88,102,1)]">{archiveIcon} {!archived ? 'Archive Note' : 'Restore Note'}</button>
-            <button onClick={() => { deleteNote(noteId); navigate("..") }} className="w-full flex gap-2 items-center px-4 py-3 border border-[rgba(202,207,216,1)] rounded-lg cursor-pointer dark:border-[rgba(82,88,102,1)]">{deleteIcon} Delete Note</button>
+            <button onClick={() => { if (archived) {unarchiveNote(noteId); navigate('..')} else { setModalType('archive'); setIsOpen(true) } }} className="w-full flex gap-2 items-center px-4 py-3 border border-[rgba(202,207,216,1)] rounded-lg cursor-pointer dark:border-[rgba(82,88,102,1)]">{archiveIcon} {!archived ? 'Archive Note' : 'Restore Note'}</button>
+            <button onClick={() => { setModalType('delete'); setIsOpen(true) } } className="w-full flex gap-2 items-center px-4 py-3 border border-[rgba(202,207,216,1)] rounded-lg cursor-pointer dark:border-[rgba(82,88,102,1)]">{deleteIcon} Delete Note</button>
+
+            <Modal
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                noteId={noteId}
+                modalType={modalType}
+                navigateTo={1}
+            />
         </div>
     )
 }
