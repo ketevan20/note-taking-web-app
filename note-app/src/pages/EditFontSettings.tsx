@@ -19,6 +19,8 @@ const EditFontSettings = () => {
 
     function saveTheme() {
         localStorage.setItem('font', font);
+        document.documentElement.classList.remove(initialValue);
+        document.documentElement.classList.add(font);
         setInitialValue(font);
     }
 

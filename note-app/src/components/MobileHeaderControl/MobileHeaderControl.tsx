@@ -14,7 +14,7 @@ const MobileHeaderControl = ({ isNew, isArchived, noteId }: MobileHeaderControlP
     const { deleteNote, archiveNote, unarchiveNote } = useNotes();
 
     return (
-        <div className="w-full flex justify-between items-center pb-4 border-b border-[rgba(224,228,234,1)]">
+        <div className="w-full flex justify-between items-center pb-4 border-b border-[rgba(224,228,234,1)] dark:border-[rgba(35,37,48,1)]">
             <GoBack />
 
             <div className="flex gap-4 items-center">
