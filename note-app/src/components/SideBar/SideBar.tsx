@@ -5,7 +5,7 @@ import NavigationButtons from "./NavigationButtons"
 
 const SideBar = () => {
     return (
-        <div className="w-69 max-xl:w-55 min-h-screen px-4 py-3 border-r border-[rgba(224,228,234,1)] dark:border-[rgba(35,37,48,1)]">
+        <div className="w-68 max-xl:w-55 min-h-screen px-4 py-3 border-r border-[rgba(224,228,234,1)] dark:border-[rgba(35,37,48,1)] text-[14px] tracking-[-0.2px]">
             <div className="py-4">
                 <Logo />
             </div>

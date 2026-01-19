@@ -10,7 +10,7 @@ const shouldBeDark =
 
 document.documentElement.classList.toggle("dark", shouldBeDark);
 
-const font = localStorage.font === 'sans-serif' ? 'sans-serif' : localStorage.font === 'serif' ? 'serif' : 'monospace';
+const font = localStorage.font ? localStorage.font : 'sans-serif';
 document.documentElement.classList.add(font);
 
 createRoot(document.getElementById('root')!).render(
