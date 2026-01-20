@@ -58,7 +58,7 @@ const Modal = ({ isOpen, modalType, noteId, navigateTo, onClose }: ModalProps) =
                     <button
                         type="button"
                         onClick={onClose}
-                        className="bg-[rgba(243,245,248,1)] px-4 py-3 rounded-lg dark:bg-[rgba(113,119,132,1)] hover:bg-[#ebebeb]">Cancel</button>
+                        className="bg-[rgba(243,245,248,1)] px-4 py-3 rounded-lg dark:bg-[rgba(113,119,132,1)] hover:bg-[#ebebeb] dark:hover:bg-[#717784a5]">Cancel</button>
 
                     <button
                         type="button"

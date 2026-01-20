@@ -39,7 +39,7 @@ const SettingsOptions = ({ title, description, options, selected, initialValue, 
                         key={option.id}
                         htmlFor={option.id}
                         className={`w-full rounded-xl border border-[rgba(224,228,234,1)] p-4 flex items-center gap-4 cursor-pointer dark:border-[rgba(43,48,59,1)]
-              ${selected === option.value ? "bg-[rgba(243,245,248,1)] dark:bg-[rgba(35,37,48,1)]" : ""}
+              ${selected === option.value ? "bg-[rgba(243,245,248,1)] dark:bg-[rgba(35,37,48,1)]" : "hover:bg-[#f3f5f8ad] dark:hover:bg-[#2325305d]"}
             `}
                     >
                         <div className="w-10 h-10 bg-[rgba(255,255,255,1)] border border-[rgba(224,228,234,1)] rounded-xl flex items-center justify-center dark:border-[rgba(43,48,59,1)] dark:bg-[rgba(14,18,27,1)]">
