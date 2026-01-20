@@ -112,7 +112,7 @@ const EditNote = () => {
 
             {!isMobile && <div className="flex gap-4 max-lg:mb-2">
               <button type="submit" className="bg-[rgba(51,92,255,1)] px-4 py-3 rounded-lg text-white hover:bg-[rgba(37,71,208,1)]">Save Note</button>
-              <button onClick={() => navigate('..')} type="button" className="bg-[rgba(243,245,248,1)] px-4 py-3 rounded-lg text-[rgba(82,88,102,1)] dark:bg-[rgba(35,37,48,1)] dark:text-[rgba(153,160,174,1)] hover:bg-[#ebebeb]">Cancel</button>
+              <button onClick={() => navigate('..')} type="button" className="bg-[rgba(243,245,248,1)] px-4 py-3 rounded-lg text-[rgba(82,88,102,1)] dark:bg-[rgba(35,37,48,1)] dark:text-[rgba(153,160,174,1)] hover:bg-[#ebebeb] dark:hover:bg-[#717784a5]">Cancel</button>
             </div>}
           </Form>
         )}
