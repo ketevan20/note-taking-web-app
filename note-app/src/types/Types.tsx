@@ -21,4 +21,4 @@ export type NotesContextType = {
     unarchiveNote: (noteId: string) => void;
 }
 
-export type ModalType = "delete" | "archive";
+export type ModalType = "delete" | "archive" | 'logout';

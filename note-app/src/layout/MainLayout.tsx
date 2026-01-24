@@ -4,7 +4,6 @@ import NavBar from "../components/NavBar/NavBar"
 import { useMediaQuery } from 'react-responsive';
 import Header from "../components/Header/Header";
 import MobileHeader from "../components/MobileHeader/MobileHeader";
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const MainLayout = () => {
@@ -12,21 +11,6 @@ const MainLayout = () => {
 
   return (
     <div className="min-h-screen w-full flex max-md:flex-col relative overflow-auto text-[14px] sans-serif:font-[Inter] dark:bg-[rgba(14,18,27,1)] serif:font-serif monospace:font-['Source_Code_Pro']">
-      <ToastContainer
-        toastClassName={() =>
-          "bg-transparent shadow-none p-0 m-0 border-0 flex justify-end max-md:mb-20 max-sm:mb-16 max-md:mr-2"
-        }
-        position="bottom-right"
-        autoClose={2000}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        pauseOnHover
-        draggable
-        className="p-0"
-        closeButton={false}
-      />
-
       {!isMobile && <SideBar />}
       {isMobile && <NavBar />}
 
