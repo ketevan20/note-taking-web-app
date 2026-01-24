@@ -50,7 +50,7 @@ const AuthForm = ({ mode }: AuthFormProps) => {
                 email,
                 password
             );
-            navigate('/notes');
+            navigate('/');
             toast(({ closeToast }) => (
                 <CustomToast message="Account has been created!" closeToast={closeToast} />
             ));

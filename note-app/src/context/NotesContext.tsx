@@ -81,10 +81,6 @@ export const NotesProvider = ({
         return () => unsubscribe();
     }, []);
 
-    useEffect(() => {
-        localStorage.setItem("notes", JSON.stringify(state.notes));
-    }, [state.notes]);
-
     const addNote = async (note: Note) => {
         await createNote(user.uid, note);
 
