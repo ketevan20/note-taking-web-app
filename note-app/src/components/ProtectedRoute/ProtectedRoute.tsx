@@ -2,8 +2,6 @@ import {  useEffect, useState, type ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { Auth } from "../../firebase";
-// import { signOut } from "firebase/auth";
-
 
 type ProtectedRouteProps = {
   children: ReactNode;
@@ -14,7 +12,6 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    // signOut(Auth); სანამ ეს არ დავამატე მანამდე ნოუთებზე მაინც გადავდიოდი რადგან იუსერი დალოგინებული იყო
     onAuthStateChanged(Auth, (user) => {
         console.log(user);
       if (user) {
@@ -24,9 +21,9 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     });
   }, []);
 
-  if (loading) return <div>Loading...</div>; // show spinner or nothing while checking
+  if (loading) return <div>Loading...</div>;
 
-  if (!user) return <Navigate to="/" replace />; // redirect to SignIn
+  if (!user) return <Navigate to="/" replace />; 
 
   return <>{children}</>;
 };
