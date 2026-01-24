@@ -1,15 +1,18 @@
 import { useNavigate } from "react-router-dom"
 import { useNotes } from "../context/NotesContext"
-import { archiveIcon, deleteIcon } from "../icons/Icons"
+import { archiveIcon, deleteIcon, logoutIcon } from "../icons/Icons"
 import type { ModalType } from "../types/Types"
 import { motion } from "motion/react"
+import { signOut } from "firebase/auth";
+import { Auth } from "../firebase"
+
 
 type ModalProps = {
     isOpen: boolean
     onClose: () => void
     modalType: ModalType | null
-    noteId: string
-    navigateTo: number
+    noteId?: string
+    navigateTo?: number
 }
 
 const Modal = ({ isOpen, modalType, noteId, navigateTo, onClose }: ModalProps) => {
@@ -23,26 +26,35 @@ const Modal = ({ isOpen, modalType, noteId, navigateTo, onClose }: ModalProps) =
         text: "Are you sure you want to permanently delete this note? This action cannot be undone.",
         icon: deleteIcon,
         onConfirm: () => {
-            deleteNote(noteId);
+            noteId ? deleteNote(noteId) : null;
             navigateTo == 1 ? navigate('..') : navigate(-1);
         },
         color: 'rgba(251, 55, 72, 1)'
-    } : {
+    } : modalType === 'archive' ? {
         label: "Archive Note",
         text: "Are you sure you want to archive this note? You can find it in the Archived Notes section and restore it anytime.",
         icon: archiveIcon,
         onConfirm: () => {
-            archiveNote(noteId);
+            noteId ? archiveNote(noteId) : null;
             navigateTo == 1 ? navigate('..') : navigate(-1);
         },
         color: 'rgba(51, 92, 255, 1)'
+    } : {
+        label: "Log Out",
+        text: "Are you sure you want to log out?",
+        icon: logoutIcon,
+        onConfirm: () => {
+            signOut(Auth);
+            navigate('/');
+        },
+        color: 'rgba(251, 55, 72, 1)'
     }
 
     return (
         <div className="fixed inset-0 bg-[#0e121b3e] flex items-center justify-center z-50 dark:bg-[#0e121b8e]">
             <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4, scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 } }} className="w-110 max-w-[90%] border border-[rgba(224,228,234,1)] bg-white rounded-xl dark:bg-[rgba(43,48,59,1)] dark:border-[rgba(82,88,102,1)]">
                 <div className="p-5 flex gap-4">
-                    <div className="w-10 h-10 bg-[rgba(243,245,248,1)] rounded-lg flex items-center justify-center dark:bg-[rgba(82,88,102,1)]">
+                    <div className="w-10 h-10 bg-[rgba(243,245,248,1)] text-[#0e121b8e] rounded-lg flex items-center justify-center dark:bg-[rgba(82,88,102,1)] dark:text-white">
                         {modalProps.icon}
                     </div>
 
@@ -58,13 +70,13 @@ const Modal = ({ isOpen, modalType, noteId, navigateTo, onClose }: ModalProps) =
                     <button
                         type="button"
                         onClick={onClose}
-                        className="bg-[rgba(243,245,248,1)] px-4 py-3 rounded-lg dark:bg-[rgba(113,119,132,1)] hover:bg-[#ebebeb] dark:hover:bg-[#717784a5]">Cancel</button>
+                        className="bg-[rgba(243,245,248,1)] px-4 py-3 rounded-lg dark:bg-[rgba(113,119,132,1)] cursor-pointer hover:bg-[#ebebeb] dark:hover:bg-[#717784a5] dark:text-white">Cancel</button>
 
                     <button
                         type="button"
                         onClick={modalProps.onConfirm}
                         style={{ backgroundColor: modalProps.color }}
-                        className="px-4 py-3 rounded-lg text-white"
+                        className="px-4 py-3 rounded-lg text-white cursor-pointer"
                     >{modalProps.label}</button>
 
                 </div>

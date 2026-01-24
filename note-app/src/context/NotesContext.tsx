@@ -1,8 +1,11 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer, useState } from "react";
 import type { Note, NotesContextType, Tag } from "../types/Types";
 import { toast } from "react-toastify";
 import CustomToast from "../toasts/CustomToast";
 import { useNavigate } from "react-router-dom";
+import { Auth } from "../firebase";
+import { archiveUnarchiveNoteInDb, createNote, deleteNoteFromDb, getUserNotes, updateNoteInDb } from "../services/notesService";
+import { onAuthStateChanged } from "firebase/auth";
 
 const notesContext = createContext<NotesContextType | null>(null);
 
@@ -12,19 +15,6 @@ export const useNotes = () => {
         throw new Error("useNotes must be used within a NotesProvider");
     }
     return context;
-};
-
-const initialValues = () => {
-    const storedNotes = localStorage.getItem("notes");
-    const notes: Note[] = storedNotes ? JSON.parse(storedNotes) : [];
-
-    notes.sort(
-        (a, b) =>
-            new Date(b.createdAt).getTime() -
-            new Date(a.createdAt).getTime()
-    );
-
-    return { notes };
 };
 
 type State = {
@@ -70,45 +60,73 @@ export const NotesProvider = ({
 }: {
     children: React.ReactNode;
 }) => {
-    const [state, dispatch] = useReducer(reducer, undefined, initialValues);
+    const [state, dispatch] = useReducer(reducer, { notes: [] });
     const navigate = useNavigate();
+    const [user, setUser] = useState<any>();
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(Auth, async (user) => {
+            if (!user) return;
+
+            setUser(user);
+            const notes = await getUserNotes(user.uid);
+            notes.sort(
+                (a, b) =>
+                    new Date(b.createdAt).getTime() -
+                    new Date(a.createdAt).getTime()
+            );
+            dispatch({ type: "replaceNotes", notes });
+        });
+
+        return () => unsubscribe();
+    }, []);
 
     useEffect(() => {
         localStorage.setItem("notes", JSON.stringify(state.notes));
     }, [state.notes]);
 
-    const addNote = (note: Note) => {
+    const addNote = async (note: Note) => {
+        await createNote(user.uid, note);
+
         toast(({ closeToast }) => (
             <CustomToast message="Note saved successfully!" closeToast={closeToast} />
         ));
         dispatch({ type: "addNote", note })
     }
 
-    const updateNote = (note: Note) => {
+    const updateNote = async (note: Note) => {
+        await updateNoteInDb(user.uid, note);
+
         toast(({ closeToast }) => (
             <CustomToast message="Note updated successfully!" closeToast={closeToast} />
         ));
         dispatch({ type: "updateNote", note });
     }
 
-    const deleteNote = (noteId: string) => {
+    const deleteNote = async (noteId: string) => {
+        await deleteNoteFromDb(user.uid, noteId);
+
         toast(({ closeToast }) => (
             <CustomToast message="Note permanently deleted." closeToast={closeToast} />
         ));
         dispatch({ type: "deleteNote", noteId });
     }
 
-    const archiveNote = (noteId: string) => {
+    const archiveNote = async (noteId: string) => {
+        await archiveUnarchiveNoteInDb(user.uid, noteId, {archived: true});
+
         toast(({ closeToast }) => (
             <CustomToast message="Note archived!" closeToast={closeToast} link="Archived Notes" onClick={() => navigate('/archived-notes')} />
         ));
         dispatch({ type: "archiveNote", noteId });
     }
 
-    const unarchiveNote = (noteId: string) => {
+    const unarchiveNote = async (noteId: string) => {
+        await archiveUnarchiveNoteInDb(user.uid, noteId, {archived: false});
+
         toast(({ closeToast }) => (
             <CustomToast message="Note restored to active notes." closeToast={closeToast} link="All Notes" onClick={() => navigate('/notes')} />
-        )); 
+        ));
         dispatch({ type: "unarchiveNote", noteId });
     }
 
